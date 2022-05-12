@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -32,7 +33,9 @@ func main() {
 	r.GET("/getComments/:photoId", cc.GetCommentByPhotoId)
 
 	// http.listenAndServe("port", router)
-	log.Fatal(http.ListenAndServe(":8080", r))
+	port := ":8080"
+	fmt.Println("Starting server and listens to port", port)
+	log.Fatal(http.ListenAndServe(port, r))
 }
 
 // router api testing hello func

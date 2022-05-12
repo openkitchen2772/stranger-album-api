@@ -34,13 +34,28 @@ func (cc CommentController) NewComment(rw http.ResponseWriter, r *http.Request, 
 		return
 	}
 
-	resByte := []byte(fmt.Sprintf("Comment insertion done for photo <%v>.", c.PhotoId))
+	fmt.Printf("Comment insertion done for photo <%v>.", c.PhotoId)
+
+	resJson := struct {
+		PhotoId string
+	}{
+		c.PhotoId,
+	}
+
+	resByte, err := json.Marshal(resJson)
+	if err != nil {
+		fmt.Println("Comment Json convertion fails", err)
+	}
 	rw.Write(resByte)
 }
 
 func (cc CommentController) GetCommentByPhotoId(rw http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	photoId := params.ByName("photoId")
-	c, err := comment.FindAll(cc.client, cc.database, photoId)
+	var (
+		c   = make([]comment.Comment, 0)
+		err error
+	)
+	c, err = comment.FindAll(cc.client, cc.database, photoId)
 
 	if err != nil {
 		fmt.Println(err)

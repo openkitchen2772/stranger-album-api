@@ -41,7 +41,7 @@ func InsertOne(client *mongo.Client, database string, comment Comment) error {
 }
 
 func FindAll(client *mongo.Client, database string, photoId string) ([]Comment, error) {
-	var comments []Comment
+	var comments = []Comment{}
 	var err error
 
 	db := client.Database(database)
@@ -69,6 +69,6 @@ func FindAll(client *mongo.Client, database string, photoId string) ([]Comment, 
 		comments = append(comments, c)
 	}
 
-	fmt.Printf("Fonud comment with Id <%v>", photoId)
+	fmt.Printf("Fonud comment with Id <%v>\n", photoId)
 	return comments, err
 }
