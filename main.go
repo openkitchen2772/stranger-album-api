@@ -15,9 +15,13 @@ import (
 )
 
 func main() {
+	// initiate environment variables
+	GetOSEnv()
+
 	// connect to mongo db, defer a cleanup disconnect()
-	database := "albumPhotos"
-	connectionString := "mongodb+srv://admin:admin@cluster0.sdez4.mongodb.net/" + database + "?retryWrites=true&w=majority"
+	database := DATABASE
+	connectionString := CONNECTION_URL
+	fmt.Println(connectionString)
 	client, ctx := connectDB(connectionString)
 	defer disconnectDB(client, ctx)
 
