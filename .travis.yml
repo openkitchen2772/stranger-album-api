@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "stranger-album-api"
+  env: "Strangeralbumapi-env"
+  bucket_name: "elasticbeanstalk-us-east-2-571983945258"
+  bucket_path: "stranger-album-api"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
